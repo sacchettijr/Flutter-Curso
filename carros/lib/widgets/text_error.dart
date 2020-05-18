@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TextError extends StatelessWidget {
-  String msg;
+  final String msg;
 
-  TextError(this.msg);
+  TextError(
+    this.msg,
+  );
 
   @override
   Widget build(BuildContext context) {

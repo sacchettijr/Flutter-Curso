@@ -63,4 +63,9 @@ class Usuario {
 
     return user;
   }
+
+  @override
+  String toString() {
+    return "Usuário{login: $login, nome: $nome}";
+  }
 }

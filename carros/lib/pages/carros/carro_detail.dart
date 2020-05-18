@@ -1,11 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carros/class/class_carro.dart';
+import 'package:carros/pages/favoritos/favorito_service.dart';
 import 'package:carros/utils/lorem_ipsum.dart';
 import 'package:flutter/material.dart';
 import 'package:carros/widgets/text.dart';
 
 class CarroPage extends StatefulWidget {
-  Carro carro;
-  CarroPage(this.carro);
+  final Carro carro;
+
+  CarroPage(
+    this.carro,
+  );
 
   @override
   _CarroPageState createState() => _CarroPageState();
@@ -14,9 +19,19 @@ class CarroPage extends StatefulWidget {
 class _CarroPageState extends State<CarroPage> {
   final _loremIpsumBloc = LoremIpsumBloc();
 
+  Color color = Colors.grey;
+
+  Carro get carro => widget.carro;
+
   @override
   void initState() {
     super.initState();
+
+    FavoritoService.isFavorite(carro).then((bool favorito) {
+      setState(() {
+        color = favorito ? Colors.red : Colors.grey;
+      });
+    });
 
     _loremIpsumBloc.fetch();
   }
@@ -75,8 +90,8 @@ class _CarroPageState extends State<CarroPage> {
       padding: EdgeInsets.all(16),
       child: ListView(
         children: <Widget>[
-          Image.network(
-            widget.carro.urlFoto,
+          CachedNetworkImage(
+            imageUrl: widget.carro.urlFoto,
           ),
           _bloco1(),
           Divider(),
@@ -109,7 +124,7 @@ class _CarroPageState extends State<CarroPage> {
             IconButton(
               icon: Icon(
                 Icons.favorite,
-                color: Colors.red,
+                color: color,
                 size: 40,
               ),
               onPressed: _onClickFavorito,
@@ -165,20 +180,26 @@ class _CarroPageState extends State<CarroPage> {
 
   void _onClickVideo() {}
 
-  void _onClickFavorito() {}
+  void _onClickFavorito() async {
+    bool favorito = await FavoritoService.favoritar(carro);
+
+    setState(() {
+      color = favorito ? Colors.red : Colors.grey;
+    });
+  }
 
   void _onClickCompartilhar() {}
 
   _onClickPopupMenu(String value) {
     switch (value) {
       case "Editar":
-        print("Editar - ${value}");
+        print("Editar");
         break;
       case "Deletar":
-        print("Deletar - ${value}");
+        print("Deletar");
         break;
       case "Compartilhar":
-        print("Compartilhar - ${value}");
+        print("Compartilhar");
         break;
     }
   }

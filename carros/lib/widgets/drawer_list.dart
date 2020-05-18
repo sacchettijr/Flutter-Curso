@@ -8,9 +8,11 @@ class DrawerList extends StatelessWidget {
     return UserAccountsDrawerHeader(
       accountName: Text(user.nome),
       accountEmail: Text(user.email),
-      currentAccountPicture: CircleAvatar(
-        backgroundImage: AssetImage(user.urlFoto),
-      ),
+      currentAccountPicture: user.urlFoto != null
+          ? CircleAvatar(
+              backgroundImage: NetworkImage(user.urlFoto),
+            )
+          : FlutterLogo(),
     );
   }
 

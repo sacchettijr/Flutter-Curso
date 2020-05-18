@@ -5,7 +5,7 @@ class LoremIpsumApi {
   static Future<String> getLoremIpsum() async {
     var url = 'https://loripsum.net/api';
 
-    print(">>> GET > $url");
+    print(">>> GET: $url");
 
     var response = await http.get(url);
 

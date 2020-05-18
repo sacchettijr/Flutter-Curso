@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:carros/pages/login/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:carros/pages/login/api_response.dart';
@@ -24,17 +23,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-
-    Future<Usuario> future = Usuario.get();
-    future.then((Usuario user) {
-      if (user != null) {
-        push(
-          context,
-          HomePage(),
-          replace: true,
-        );
-      }
-    });
   }
 
   @override
@@ -111,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
     if (response.ok) {
       Usuario user = response.result;
 
-      print(">>> $user");
+      print(">>> USER: $user");
 
       push(
         context,
