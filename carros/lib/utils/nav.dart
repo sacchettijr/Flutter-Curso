@@ -7,11 +7,19 @@ Future push(BuildContext context, Widget page, {bool replace = false}) {
         return page;
       },
     ));
+  }
+  return Navigator.push(context, MaterialPageRoute(
+    builder: (BuildContext context) {
+      return page;
+    },
+  ));
+}
+
+bool pop<T extends Object>(BuildContext context, [T result]) {
+  if (Navigator.canPop(context)) {
+    Navigator.pop(context);
+    return true;
   } else {
-    return Navigator.push(context, MaterialPageRoute(
-      builder: (BuildContext context) {
-        return page;
-      },
-    ));
+    return false;
   }
 }
