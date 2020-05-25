@@ -5,6 +5,7 @@ Text text(
   double fontSize = 16,
   color: Colors.black,
   bold = false,
+  align = TextAlign.left,
 }) {
   return Text(
     s ?? "",
@@ -13,5 +14,6 @@ Text text(
       color: color,
       fontWeight: bold ? FontWeight.bold : FontWeight.normal,
     ),
+    textAlign: align,
   );
 }

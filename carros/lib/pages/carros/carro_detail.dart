@@ -45,7 +45,9 @@ class _CarroPageState extends State<CarroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: text(widget.carro.nome),
+        title: text(
+          widget.carro.nome,
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(
@@ -111,19 +113,21 @@ class _CarroPageState extends State<CarroPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            text(
-              widget.carro.nome,
-              fontSize: 20,
-              bold: true,
-            ),
-            text(
-              widget.carro.tipo,
-              fontSize: 16,
-            ),
-          ],
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              text(
+                widget.carro.nome,
+                fontSize: 20,
+                bold: true,
+              ),
+              text(
+                widget.carro.tipo,
+                fontSize: 16,
+              ),
+            ],
+          ),
         ),
         Row(
           children: <Widget>[
@@ -167,16 +171,18 @@ class _CarroPageState extends State<CarroPage> {
               return Center(
                 child: CircularProgressIndicator(),
               );
+            } else {
+              return text(
+                snapshot.data,
+                fontSize: 16,
+                align: TextAlign.justify,
+              );
             }
-
-            return text(
-              snapshot.data,
-              fontSize: 16,
-            );
           },
         ),
         text(
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          align: TextAlign.justify,
         ),
       ],
     );
