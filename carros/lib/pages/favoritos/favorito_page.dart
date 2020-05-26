@@ -1,8 +1,9 @@
 import 'package:carros/class/class_carro.dart';
 import 'package:carros/pages/carros/carro_listview.dart';
+import 'package:carros/pages/favoritos/favorito_bloc.dart';
 import 'package:carros/widgets/text_error.dart';
 import 'package:flutter/material.dart';
-import 'package:carros/pages/favoritos/favorito_bloc.dart';
+import 'package:provider/provider.dart';
 
 class FavoritosPage extends StatefulWidget {
   @override
@@ -11,8 +12,6 @@ class FavoritosPage extends StatefulWidget {
 
 class _FavoritosPageState extends State<FavoritosPage>
     with AutomaticKeepAliveClientMixin<FavoritosPage> {
-  final _bloc = FavoritoBloc();
-
   @override
   bool get wantKeepAlive => true;
 
@@ -20,7 +19,12 @@ class _FavoritosPageState extends State<FavoritosPage>
   void initState() {
     super.initState();
 
-    _bloc.fetch();
+    FavoritoBloc favoritosBloc = Provider.of<FavoritoBloc>(
+      context,
+      listen: false,
+    );
+
+    favoritosBloc.fetch();
   }
 
   @override
@@ -28,7 +32,7 @@ class _FavoritosPageState extends State<FavoritosPage>
     super.build(context);
 
     return StreamBuilder(
-      stream: _bloc.stream,
+      stream: Provider.of<FavoritoBloc>(context).stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return TextError(
@@ -53,12 +57,6 @@ class _FavoritosPageState extends State<FavoritosPage>
   }
 
   Future<void> _onRefresh() {
-    return _bloc.fetch();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
+    return Provider.of<FavoritoBloc>(context).fetch();
   }
 }
